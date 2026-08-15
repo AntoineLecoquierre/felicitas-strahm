@@ -14,6 +14,13 @@
     --gold:#e6b34a; --gold-glow:#f7de9b; --gold-soft:#b9893a;
     --mist:#eef4f2; --mist-dim:rgba(238,244,242,.9); --mist-faint:rgba(238,244,242,.6);
     --line:rgba(230,179,74,.32);
+
+    /* light palette for everything below the hero */
+    --paper:#f7f5f0; --paper-alt:#eaf1ee; --surface:#fff;
+    --ink:#0f2831; --ink-soft:#40606c;
+    --gold-deep:#96681c;
+    --line-ink:rgba(15,40,49,.12); --line-gold:rgba(150,104,28,.28);
+    --shadow:0 18px 48px rgba(15,40,49,.09);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{background:var(--abyss);scroll-behavior:auto}
@@ -104,17 +111,29 @@
   }
 
   /* ---------- after the hero ---------- */
-  .band{padding:clamp(5rem,11vw,8rem) 0;background:var(--abyss)}
+  main{position:relative;background:var(--paper);color:var(--ink)}
+  /* soft fade out of the dark hero into the light page */
+  main::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:130px;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(5,9,13,.92),rgba(15,53,67,.3) 46%,rgba(247,245,240,0));
+  }
+  /* and back down into the dark footer */
+  main::after{
+    content:"";position:absolute;bottom:0;left:0;right:0;height:90px;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(247,245,240,0),rgba(15,40,49,.09));
+  }
+  #ueber-mich{padding-top:calc(clamp(5rem,11vw,8rem) + 3.5rem)}
+  .band{padding:clamp(5rem,11vw,8rem) 0;background:var(--paper)}
   .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(1.4rem,5vw,3rem)}
   .two{display:grid;grid-template-columns:1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
   @media(min-width:820px){.two{grid-template-columns:1.05fr .95fr}}
-  .sec-eyebrow{display:block;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.2rem}
-  .sec-title{font-size:clamp(2rem,5vw,3rem);margin-bottom:1.6rem;max-width:20ch}
-  .lead{font-size:clamp(1.02rem,2vw,1.18rem);color:var(--mist-dim);max-width:60ch}
+  .sec-eyebrow{display:block;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:1.2rem}
+  .sec-title{font-size:clamp(2rem,5vw,3rem);margin-bottom:1.6rem;max-width:20ch;color:var(--ink)}
+  .lead{font-size:clamp(1.02rem,2vw,1.18rem);color:var(--ink-soft);max-width:60ch}
   .lead+.lead{margin-top:1.2rem}
-  .lead em{color:var(--gold-glow);font-style:italic}
-  .portrait{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line);
-    background:linear-gradient(160deg,var(--water),var(--abyss))}
+  .lead em{color:var(--gold-deep);font-style:italic}
+  .portrait{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/5;border:1px solid var(--line-ink);
+    background:linear-gradient(160deg,var(--paper-alt),var(--paper));box-shadow:var(--shadow)}
   .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:54% center}
   .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s ease}
   .reveal.in{opacity:1;transform:none}
@@ -127,7 +146,11 @@
   }
 
   /* ---- sections carried over from v1 ---- */
-  .band-deep{background:linear-gradient(180deg,var(--abyss),#07141a 60%,var(--abyss))}
+  .band-deep{
+    background:
+      radial-gradient(90% 62% at 50% 0%, rgba(230,179,74,.10), transparent 62%),
+      linear-gradient(180deg,var(--paper),var(--paper-alt) 55%,var(--paper));
+  }
   .sec-eyebrow{display:block;margin-bottom:1.3rem}
   .sec-title{
     font-size:clamp(2rem,5vw,3.15rem);margin-bottom:1.8rem;max-width:20ch;
@@ -136,36 +159,39 @@
   @media(min-width:720px){.cards{grid-template-columns:1fr 1fr}}
   .card{
     padding:2.4rem 2rem;border-radius:16px;
-    background:linear-gradient(165deg,rgba(15,53,67,.5),rgba(10,33,43,.35));
-    border:1px solid var(--line);
-    transition:transform .4s ease, border-color .4s ease;
+    background:var(--surface);
+    border:1px solid var(--line-ink);
+    box-shadow:var(--shadow);
+    transition:transform .4s ease, border-color .4s ease, box-shadow .4s ease;
   }
-  .card:hover{transform:translateY(-4px);border-color:rgba(230,179,74,.45)}
+  .card:hover{transform:translateY(-4px);border-color:var(--line-gold);box-shadow:0 26px 60px rgba(15,40,49,.13)}
   .card h3{
     font-family:"Cormorant Garamond",serif;font-weight:600;
-    font-size:1.7rem;margin-bottom:.5rem;color:var(--gold-glow);
+    font-size:1.7rem;margin-bottom:.5rem;color:var(--gold-deep);
   }
-  .card p{color:var(--mist-dim);font-weight:400}
+  .card p{color:var(--ink-soft);font-weight:400}
   .creed{text-align:center;max-width:760px;margin:0 auto}
   .creed p{
     font-family:"Cormorant Garamond",serif;font-style:italic;
-    font-size:clamp(1.6rem,4.4vw,2.7rem);line-height:1.35;color:var(--mist);
+    font-size:clamp(1.6rem,4.4vw,2.7rem);line-height:1.35;color:var(--ink);
     font-weight:400;
   }
-  .creed p .g{color:var(--gold)}
+  .creed p .g{color:var(--gold-deep)}
   .invite{
     text-align:center;max-width:640px;margin:0 auto;
     padding:clamp(3rem,7vw,4.5rem) clamp(1.6rem,5vw,3.5rem);
     border-radius:22px;
     background:
-      radial-gradient(120% 90% at 50% 0%, rgba(230,179,74,.12), transparent 55%),
-      linear-gradient(180deg,rgba(15,53,67,.5),rgba(10,33,43,.4));
+      radial-gradient(120% 90% at 50% 0%, rgba(230,179,74,.16), transparent 55%),
+      linear-gradient(165deg,var(--water),var(--deep) 70%);
     border:1px solid var(--line);
+    box-shadow:0 26px 70px rgba(15,40,49,.22);
+    color:var(--mist);
   }
   .invite h2{font-size:clamp(1.9rem,5vw,3rem);margin-bottom:1rem}
   .invite p{color:var(--mist-dim);margin-bottom:2.2rem;font-weight:400;font-size:1.12rem}
-  .divider{display:flex;justify-content:center;padding:.5rem 0;background:var(--abyss)}
-  .divider svg{width:120px;height:auto;opacity:.6}
+  .divider{display:flex;justify-content:center;padding:.5rem 0;background:var(--paper)}
+  .divider svg{width:120px;height:auto;opacity:.5;stroke:var(--gold-deep)}
   footer{background:var(--abyss);
     padding:3.5rem 0 2.5rem;border-top:1px solid var(--line);
     text-align:center;
