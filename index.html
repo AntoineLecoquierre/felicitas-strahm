@@ -53,33 +53,7 @@
   .btn-ghost{border-color:var(--line);color:var(--mist)}
   .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
   .btn-lg{padding:.95rem 2rem;font-size:.98rem}
-  .header-cta{padding:.58rem 1.25rem;font-size:.82rem;white-space:nowrap}
-  /* both header buttons stay out of the way over the hero and slide in
-     together with the solid header background */
-  .header-actions{
-    display:flex;align-items:center;gap:.6rem;
-    opacity:0;visibility:hidden;transform:translateY(-8px);
-    transition:opacity .45s ease,transform .45s ease,visibility 0s linear .45s;
-  }
-  header.solid .header-actions{
-    opacity:1;visibility:visible;transform:none;
-    transition:opacity .45s ease,transform .45s ease,visibility 0s;
-  }
-  .lbl-short{display:none}
-  @media(max-width:640px){
-    .brand{font-size:1rem;white-space:nowrap}
-    .header-actions{gap:.4rem}
-    .header-cta{padding:.5rem .85rem;font-size:.72rem}
-    /* the full label no longer fits next to the brand on a phone */
-    .lbl-long{display:none}
-    .lbl-short{display:inline}
-  }
-  @media(max-width:400px){
-    header{padding-left:.9rem;padding-right:.9rem}
-    .brand{font-size:.88rem}
-    .header-actions{gap:.3rem}
-    .header-cta{padding:.44rem .66rem;font-size:.66rem}
-  }
+  .header-cta{padding:.58rem 1.25rem;font-size:.82rem}
   :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
   /* ---------- scroll hero ---------- */
@@ -168,7 +142,6 @@
     .hero-scroll{height:100svh}
     .layer{opacity:1!important;transform:none!important}
     .reveal{opacity:1;transform:none;transition:none}
-    .header-actions{transform:none}
     .rings,.cue{display:none}
   }
 
@@ -241,10 +214,7 @@
 
 <header id="hdr">
   <a href="#top" class="brand">Felicitas <span>&#183;</span> Strahm</a>
-  <nav class="header-actions">
-    <a href="#ueber-mich" class="btn btn-ghost header-cta"><span class="lbl-long">Mehr erfahren</span><span class="lbl-short">Mehr</span></a>
-    <a href="#einstieg" class="btn btn-gold header-cta">Termin buchen</a>
-  </nav>
+  <a href="#einstieg" class="btn btn-gold header-cta">Termin buchen</a>
 </header>
 
 <section class="hero-scroll" id="top">
