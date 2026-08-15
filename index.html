@@ -411,7 +411,6 @@
       rc[i].style.transform='scale('+(.55+.45*s).toFixed(3)+')';
     }
     L.cue.style.opacity=1-seg(p,0,.10);
-    hdr.classList.toggle('solid', p>.05);
   }
 
   function progress(){
@@ -421,10 +420,24 @@
     return clamp(-r.top/total,0,1);
   }
 
+  // The header background follows the page scroll on its own, independent of
+  // the hero animation: it must also work with reduced motion, and on phones,
+  // where hero progress is skewed by the browser chrome collapsing (the hero is
+  // sized in svh while window.innerHeight grows as the URL bar hides).
+  function scrolled(){
+    return window.pageYOffset || document.documentElement.scrollTop || 0;
+  }
+  function syncHeader(){ hdr.classList.toggle('solid', scrolled() > 48); }
+  syncHeader();
+  window.addEventListener('scroll', syncHeader, {passive:true});
+  window.addEventListener('resize', syncHeader);
+  window.addEventListener('orientationchange', syncHeader);
+  if(window.visualViewport) window.visualViewport.addEventListener('resize', syncHeader);
+
   if(reduce){
     showFrame(Math.round((frames.length-1)/2)); framesEl.style.transform='none';
     [L.eyebrow,L.line1,L.kraft,L.lede,L.cta].forEach(function(el){el.style.opacity=1;el.style.transform='none';});
-    L.cue.style.opacity=0; hdr.classList.add('solid');
+    L.cue.style.opacity=0;
   } else {
     var target=0,current=0;
     function onScroll(){target=progress();}
