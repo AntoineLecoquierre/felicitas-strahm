@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.className='js';</script>
 <style>
   :root{
     --abyss:#05090d; --deep:#0a212b; --water:#0f3543;
@@ -100,6 +101,9 @@
     font-size:clamp(1.15rem,3vw,1.75rem);color:var(--mist-dim);margin-top:1.5rem;
   }
   .actions{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:2.4rem}
+  /* hidden before the script takes over, so the buttons never flash into
+     view ahead of their scroll entrance (reduced motion restores them below) */
+  .js #l-cta{opacity:0}
 
   /* ripple progress */
   .rings{position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:4;pointer-events:none}
@@ -385,7 +389,10 @@
     kraft:document.getElementById('l-kraft'), lede:document.getElementById('l-lede'),
     cta:document.getElementById('l-cta'), rings:document.getElementById('rings'), cue:document.getElementById('cue')
   };
-  [L.eyebrow,L.line1,L.kraft,L.lede,L.cta].forEach(function(el){ if(el){ el.style.opacity='1'; el.style.transform='none'; } });
+  [L.eyebrow,L.line1,L.kraft,L.lede].forEach(function(el){ if(el){ el.style.opacity='1'; el.style.transform='none'; } });
+  // the two hero buttons ride the scroll animation instead of standing still:
+  // hidden on arrival, they rise into place as the ripple rings open up
+  if(L.cta && !reduce){ L.cta.style.opacity='0'; L.cta.style.pointerEvents='none'; }
   function clamp(v,a,b){return v<a?a:(v>b?b:v);}
   function seg(p,a,b){return clamp((p-a)/(b-a),0,1);}
   function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
@@ -403,6 +410,11 @@
     framesEl.style.transform='scale('+(1.06-0.06*p).toFixed(3)+')';
 
     // text stays fully visible; scroll only drives the water movement behind it
+
+    var cta=ease(seg(p,.02,.20));
+    L.cta.style.opacity=cta.toFixed(3);
+    L.cta.style.transform='translateY('+(16*(1-cta)).toFixed(2)+'px)';
+    L.cta.style.pointerEvents=cta>.6?'auto':'none';
 
     var rc=L.rings.querySelectorAll('circle');
     for(var i=0;i<rc.length;i++){
