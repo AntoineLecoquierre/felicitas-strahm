@@ -2,8 +2,11 @@
 
 Site one-page de Felicitas Christine Strahm – Seelenzentriertes Coaching & Tao Tantric Arts.
 
-Le site est entièrement contenu dans `index.html` : CSS et JavaScript en ligne,
-images intégrées en data URI. Aucune dépendance externe en dehors des Google Fonts.
+`index.html` porte le CSS et le JavaScript en ligne. Les images sont des
+fichiers : `frames/01.jpg` à `frames/35.jpg` pour l'animation du hero,
+`portrait.jpg`, et `share.jpg` pour l'aperçu des liens partagés. Seul le logo
+reste en data URI, pour qu'il s'affiche sans attendre une requête. Aucune
+dépendance externe en dehors des Google Fonts.
 
 ## Déploiement
 
