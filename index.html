@@ -83,8 +83,8 @@
   .veil{
     position:absolute;inset:0;pointer-events:none;
     background:
-      radial-gradient(70% 55% at 50% 46%, rgba(5,9,13,0) 0%, rgba(5,9,13,.5) 62%, rgba(5,9,13,.86) 100%),
-      linear-gradient(180deg, rgba(5,9,13,.72) 0%, rgba(5,9,13,0) 26%, rgba(5,9,13,0) 62%, rgba(5,9,13,.9) 100%);
+      radial-gradient(82% 64% at 50% 46%, rgba(5,9,13,0) 0%, rgba(5,9,13,.24) 66%, rgba(5,9,13,.58) 100%),
+      linear-gradient(180deg, rgba(5,9,13,.58) 0%, rgba(5,9,13,0) 22%, rgba(5,9,13,0) 68%, rgba(5,9,13,.82) 100%);
   }
   .grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E")}
@@ -184,6 +184,7 @@
     font-size:1.7rem;margin-bottom:.5rem;color:var(--gold-deep);
   }
   .card p{color:var(--ink-soft);font-weight:400}
+  .note{margin-top:1.7rem;color:var(--ink-soft);font-size:.98rem}
   .creed{text-align:center;max-width:760px;margin:0 auto}
   .creed p{
     font-family:"Cormorant Garamond",serif;font-style:italic;
@@ -274,7 +275,6 @@
     <div class="grain"></div>
 
     <div class="copy">
-      <span class="eyebrow layer" id="l-eyebrow">Seelenzentriertes Coaching &amp; Tao Tantric Arts</span>
       <h1 class="display">
         <span class="layer" id="l-line1" style="display:block">Komm in deine</span>
         <span class="kraft layer" id="l-kraft">volle Kraft.</span>
@@ -341,9 +341,10 @@
         </div>
         <div class="card reveal">
           <h3>Paare</h3>
-          <p>Tantra-Paarabende – eure Sexualität als Quelle für Verbindung, Gesundheit und Lebenskraft.</p>
+          <p>Tantra-Paarabende und Einzelsitzungen für Paare – eure Sexualität als Quelle für Verbindung, Gesundheit und Lebenskraft.</p>
         </div>
       </div>
+      <p class="note reveal">Einzelsitzungen sind auch online und per Telefon möglich.</p>
     </div>
   </section>
 
@@ -395,11 +396,11 @@
   var frames = Array.prototype.slice.call(document.querySelectorAll('.frame'));
   var N = frames.length;
   var L = {
-    eyebrow:document.getElementById('l-eyebrow'), line1:document.getElementById('l-line1'),
+    line1:document.getElementById('l-line1'),
     kraft:document.getElementById('l-kraft'), lede:document.getElementById('l-lede'),
     cta:document.getElementById('l-cta'), rings:document.getElementById('rings'), cue:document.getElementById('cue')
   };
-  [L.eyebrow,L.line1,L.kraft,L.lede].forEach(function(el){ if(el){ el.style.opacity='1'; el.style.transform='none'; } });
+  [L.line1,L.kraft,L.lede].forEach(function(el){ if(el){ el.style.opacity='1'; el.style.transform='none'; } });
   // the two hero buttons ride the scroll animation instead of standing still:
   // hidden on arrival, they rise into place as the ripple rings open up
   if(L.cta && !reduce){ L.cta.style.opacity='0'; L.cta.style.pointerEvents='none'; }
@@ -467,7 +468,7 @@
 
   if(reduce){
     showFrame(Math.round((frames.length-1)/2)); framesEl.style.transform='none';
-    [L.eyebrow,L.line1,L.kraft,L.lede,L.cta].forEach(function(el){el.style.opacity=1;el.style.transform='none';});
+    [L.line1,L.kraft,L.lede,L.cta].forEach(function(el){el.style.opacity=1;el.style.transform='none';});
     L.cue.style.opacity=0;
   } else {
     var target=0,current=0,running=false;
