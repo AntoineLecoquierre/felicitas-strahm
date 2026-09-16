@@ -6,7 +6,8 @@ Site one-page de Felicitas Christine Strahm – Seelenzentriertes Coaching & Tao
 fichiers : `frames/01.jpg` à `frames/35.jpg` pour l'animation du hero, avec un
 jeu recadré en portrait `frames/p01.jpg` à `p35.jpg` servi aux téléphones,
 `portrait.jpg`, et `share.jpg` pour l'aperçu des liens partagés. Seul le logo
-reste en data URI, pour qu'il s'affiche sans attendre une requête. Aucune
+reste en data URI — le logotype de l'en-tête, le pictogramme du hero et
+l'icône d'onglet — pour qu'il s'affiche sans attendre une requête. Aucune
 dépendance externe en dehors des Google Fonts.
 
 ## Déploiement
