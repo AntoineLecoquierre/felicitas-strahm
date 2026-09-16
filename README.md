@@ -15,6 +15,15 @@ Le workflow `.github/workflows/deploy-pages.yml` publie la racine du dépôt sur
 GitHub Pages à chaque push sur `main` ou `claude/index-html-github-pages-m7nopa`,
 et peut aussi être lancé manuellement (« Run workflow »).
 
+Le dépôt n'a pas de branche `main` : `claude/index-html-github-pages-m7nopa` est
+donc la branche publiée. Le travail se fait sur une branche de session, et on
+publie en avançant la branche publiée dessus — c'est ce push-là qui déclenche le
+déploiement :
+
+```sh
+git push origin <branche-de-travail>:claude/index-html-github-pages-m7nopa
+```
+
 Étape unique à faire une fois dans l'interface GitHub :
 **Settings → Pages → Build and deployment → Source : GitHub Actions.**
 Le jeton d'Actions n'a pas le droit de créer le site Pages lui-même ; une fois la
