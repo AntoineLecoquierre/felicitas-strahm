@@ -10,6 +10,17 @@ reste en data URI — le logotype de l'en-tête, le pictogramme du hero et
 l'icône d'onglet — pour qu'il s'affiche sans attendre une requête. Aucune
 dépendance externe en dehors des Google Fonts.
 
+## Page de parcours
+
+`lebenslauf.html` est la page de CV détaillée. Elle est autonome (son CSS est
+en ligne comme celui de `index.html`) et reprend les mêmes jetons de couleur et
+les mêmes composants. Tant que les champs en pointillé n'ont pas été remplis :
+
+- elle porte `<meta name="robots" content="noindex">` ;
+- son lien depuis `index.html` (section « Über mich ») est en commentaire.
+
+Retirer ces deux marques la met en ligne pour de bon.
+
 ## Déploiement
 
 Le workflow `.github/workflows/deploy-pages.yml` publie la racine du dépôt sur
