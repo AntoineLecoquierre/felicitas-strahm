@@ -130,12 +130,27 @@
   .js #l-cta{opacity:0}
 
   /* ripple progress */
-  .rings{position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);z-index:4;pointer-events:none}
+  .rings{position:absolute;left:50%;bottom:3.9rem;transform:translateX(-50%);z-index:4;pointer-events:none}
   .rings svg{display:block;width:74px;height:auto;overflow:visible}
   .rings circle{fill:none;stroke:var(--gold);transform-origin:center}
+  /* invitation à descendre : le mot et la flèche mènent au premier texte
+     sous l'eau, pour qui ne devine pas qu'il faut faire défiler */
   .cue{
-    position:absolute;left:50%;bottom:1.1rem;transform:translateX(-50%);z-index:4;
-    font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mist-faint);
+    position:absolute;left:50%;bottom:.55rem;transform:translateX(-50%);z-index:5;
+    display:flex;flex-direction:column;align-items:center;gap:.5rem;
+    padding:.5rem .9rem;
+    font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--mist-dim);
+    transition:color .3s ease;
+  }
+  .cue:hover,.cue:focus-visible{color:var(--gold)}
+  .cue svg{
+    display:block;width:17px;height:auto;
+    fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;
+    animation:cue-bob 2.6s ease-in-out infinite;
+  }
+  @keyframes cue-bob{
+    0%,100%{transform:translateY(-2px);opacity:.5}
+    50%{transform:translateY(3px);opacity:1}
   }
 
   /* ---------- after the hero ---------- */
@@ -170,7 +185,8 @@
     .hero-scroll{height:100svh}
     .layer{opacity:1!important;transform:none!important}
     .reveal{opacity:1;transform:none;transition:none}
-    .rings,.cue{display:none}
+    .rings{display:none}
+    .cue svg{animation:none}
   }
 
   /* ---- sections carried over from v1 ---- */
@@ -309,7 +325,9 @@
         <circle cx="50" cy="17" r="24" stroke-width=".8"/>
       </svg>
     </div>
-    <div class="cue" id="cue">Scrollen</div>
+    <a class="cue" id="cue" href="#ueber-mich">Mehr entdecken
+      <svg viewBox="0 0 24 14" aria-hidden="true"><path d="M2 2 12 12 22 2"/></svg>
+    </a>
   </div>
 </section>
 
@@ -468,7 +486,20 @@
       rc[i].style.opacity=((.14+.5*s)*(1-seg(p,.9,1))).toFixed(3);
       rc[i].style.transform='scale('+(.55+.45*s).toFixed(3)+')';
     }
-    L.cue.style.opacity=1-seg(p,0,.10);
+    // l'invitation tient le premier tiers du défilement, le temps d'être vue
+    var cue=1-seg(p,.35,.60);
+    L.cue.style.opacity=cue.toFixed(3);
+    L.cue.style.pointerEvents=cue>.2?'auto':'none';
+  }
+
+  // cliquer l'invitation évite d'avoir à deviner : on descend au premier texte
+  if(L.cue){
+    L.cue.addEventListener('click',function(e){
+      var t=document.getElementById('ueber-mich');
+      if(!t) return;
+      e.preventDefault();
+      t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+    });
   }
 
   function progress(){
@@ -498,7 +529,7 @@
     repaint=function(){ showFrame(mid); };
     showFrame(mid); framesEl.style.transform='none';
     [L.line1,L.kraft,L.lede,L.cta].forEach(function(el){el.style.opacity=1;el.style.transform='none';});
-    L.cue.style.opacity=0;
+    L.cue.style.opacity=1;
   } else {
     var target=0,current=0,running=false;
     // the loop only runs while there is motion left to render, instead of
